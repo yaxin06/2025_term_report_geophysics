@@ -181,14 +181,24 @@
         }
         
         /* Link styling for Subpage */
-        .field-trip-link {
+        .page-link-btn {
             display: inline-block;
-            margin-top: 10px;
-            color: #6B9080;
+            margin-top: 15px;
+            font-size: 0.9rem;
             font-weight: bold;
-            text-decoration: underline;
-            cursor: pointer;
+            text-decoration: none;
+            padding-bottom: 2px;
+            border-bottom: 2px solid currentColor;
+            transition: opacity 0.3s;
         }
+        
+        .page-link-btn:hover {
+            opacity: 0.7;
+        }
+
+        .link-green { color: #52796F; } /* 對應實驗網頁 */
+        .link-brown { color: #CB997E; } /* 對應地熱網頁 */
+
     </style>
 </head>
 <body>
@@ -213,7 +223,8 @@
           data: "Pygmt, Obspy, Streamlit, Gradio" },
         { date: "9/24", week: "Week 3", title: "校園野外實驗", type: "field", 
           geo: "折射探勘實作", 
-          data: "實地數據採集", link: "experiment.html" },
+          data: "實地數據採集", 
+          link: "experiment.html", linkText: "進入實驗頁面 →", linkClass: "link-green" },
         { date: "10/1", week: "Week 4", title: "地球物理專題演講", type: "guest", 
           geo: "專題講座", 
           data: "-" },
@@ -243,7 +254,8 @@
           data: "Obspy 地震資料處理" },
         { date: "12/03", week: "Week 13", title: "板塊構造與地熱", type: "normal", 
           geo: "板塊構造與地熱", 
-          data: "Gemini API 申請, Dify 應用" },
+          data: "Gemini API 申請, Dify 應用",
+          link: "geothermal.html", linkText: "進入地熱與PyGMT專題 →", linkClass: "link-brown" },
         { date: "12/10", week: "Week 14", title: "專題演講：黃有志博士", type: "guest", 
           geo: "阿蘇火山、熊本地震到嘉南地震觀測：旅日經驗與應用", 
           data: "-" },
@@ -267,9 +279,10 @@
         // Create Badge
         const dateParts = item.date.split('/');
         
+        // Handle Links
         let linkHtml = '';
         if(item.link) {
-            linkHtml = `<a href="${item.link}" class="field-trip-link">進入實驗頁面 →</a>`;
+            linkHtml = `<a href="${item.link}" class="page-link-btn ${item.linkClass}">${item.linkText}</a>`;
         }
 
         const html = `
