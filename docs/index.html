@@ -7,198 +7,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #F7F5F0; /* 米白紙質感 */
+            --bg-color: #F7F5F0;
             --card-bg: #FFFFFF;
             --text-main: #464646;
             --text-light: #7A7A7A;
-            --accent-geo: #6A8EAE; /* 莫蘭迪藍 - 地球物理 */
-            --accent-data: #B5838D; /* 莫蘭迪粉 - 資料處理 */
-            --accent-event: #E5989B; /* 特別活動 */
-            --border-color: #E0E0E0;
+            --accent-geo: #6A8EAE;
+            --accent-data: #B5838D;
+            --accent-event: #E5989B;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Lato', 'Noto Serif TC', serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
         }
-
-        /* Header Area */
         header {
             text-align: center;
             padding: 80px 20px;
             background: radial-gradient(circle at center, #fff 0%, var(--bg-color) 100%);
         }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            color: #2C3E50;
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            color: var(--text-light);
-            margin-bottom: 20px;
-            font-weight: 300;
-        }
-
+        h1 { font-size: 2.5rem; margin-bottom: 10px; color: #2C3E50; }
+        .subtitle { font-size: 1rem; color: var(--text-light); margin-bottom: 20px; }
         .course-link {
-            display: inline-block;
-            text-decoration: none;
-            color: var(--accent-geo);
-            border: 1px solid var(--accent-geo);
-            padding: 8px 20px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
+            display: inline-block; text-decoration: none; color: var(--accent-geo);
+            border: 1px solid var(--accent-geo); padding: 8px 20px; border-radius: 20px;
+            transition: all 0.3s ease; font-size: 0.9rem;
         }
-
-        .course-link:hover {
-            background-color: var(--accent-geo);
-            color: white;
-        }
-
-        /* Timeline Container */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-        }
-
-        /* Timeline Line */
+        .course-link:hover { background-color: var(--accent-geo); color: white; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; position: relative; }
         .container::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            width: 2px;
-            height: 100%;
-            background-color: #D3D3D3;
-            transform: translateX(-50%);
-            z-index: 0;
+            content: ''; position: absolute; left: 50%; width: 2px; height: 100%;
+            background-color: #D3D3D3; transform: translateX(-50%); z-index: 0;
         }
-
-        /* Card Item */
         .week-card {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 50px;
-            position: relative;
-            z-index: 1;
+            display: flex; justify-content: space-between; align-items: flex-start;
+            margin-bottom: 50px; position: relative; z-index: 1;
         }
-
-        .week-card:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
+        .week-card:nth-child(even) { flex-direction: row-reverse; }
         .date-badge {
-            background-color: #2C3E50;
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.8rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 4px solid var(--bg-color);
+            background-color: #2C3E50; color: #fff; padding: 10px; border-radius: 50%;
+            width: 80px; height: 80px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; font-size: 0.8rem;
+            position: absolute; left: 50%; transform: translateX(-50%);
+            border: 4px solid var(--bg-color); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-
-        .date-badge span {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
+        .date-badge span { font-weight: bold; font-size: 1.1rem; }
         .card-content {
-            width: 45%;
-            background-color: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-left: 5px solid transparent;
+            width: 45%; background-color: var(--card-bg); padding: 25px;
+            border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease; border-left: 5px solid transparent;
         }
-
-        .card-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .week-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .tags {
-            margin-top: 15px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            font-size: 0.75rem;
-            padding: 4px 10px;
-            border-radius: 4px;
-            background-color: #f0f0f0;
-        }
-
+        .card-content:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .week-title { font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; }
+        .tags { margin-top: 15px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { font-size: 0.75rem; padding: 4px 10px; border-radius: 4px; background-color: #f0f0f0; }
         .tag.geo { background-color: rgba(106, 142, 174, 0.15); color: #4A6C8A; }
         .tag.data { background-color: rgba(181, 131, 141, 0.15); color: #8F5C66; }
-        .tag.special { background-color: #FFF3CD; color: #856404; border: 1px solid #FFEEBA; }
-
-        .desc {
-            font-size: 0.95rem;
-            color: var(--text-main);
-            margin-top: 10px;
-        }
-
-        /* Type Specific Borders */
+        
+        /* Specific Styles */
         .type-normal .card-content { border-left-color: var(--accent-geo); }
-        .type-field .card-content { border-left-color: #6B9080; background-color: #F4F9F6; } /* Green tint */
+        .type-field .card-content { border-left-color: #6B9080; background-color: #F4F9F6; }
         .type-exam .card-content { border-left-color: #E5989B; }
         .type-guest .card-content { border-left-color: #FFB4A2; }
 
-        /* Mobile Responsive */
+        /* Link Buttons */
+        .page-link-btn {
+            display: inline-block; margin-top: 15px; font-size: 0.9rem; font-weight: bold;
+            text-decoration: none; border-bottom: 2px solid currentColor; transition: opacity 0.3s;
+        }
+        .page-link-btn:hover { opacity: 0.7; }
+        .link-green { color: #52796F; }
+        .link-brown { color: #CB997E; }
+
         @media (max-width: 768px) {
             .container::before { left: 20px; }
             .week-card, .week-card:nth-child(even) { flex-direction: column; padding-left: 50px; }
             .date-badge { left: 20px; top: 0; transform: none; width: 60px; height: 60px; }
             .card-content { width: 100%; margin-top: 10px; }
         }
-        
-        /* Link styling for Subpage */
-        .page-link-btn {
-            display: inline-block;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            text-decoration: none;
-            padding-bottom: 2px;
-            border-bottom: 2px solid currentColor;
-            transition: opacity 0.3s;
-        }
-        
-        .page-link-btn:hover {
-            opacity: 0.7;
-        }
-
-        .link-green { color: #52796F; } /* 對應實驗網頁 */
-        .link-brown { color: #CB997E; } /* 對應地熱網頁 */
-
     </style>
 </head>
 <body>
@@ -209,88 +96,49 @@
     <a href="https://huggingface.co/spaces/cwadayi/Geophysics_class" target="_blank" class="course-link">Course Introduction</a>
 </header>
 
-<div class="container" id="timeline">
-    <!-- JS will populate this -->
-</div>
+<div class="container" id="timeline"></div>
 
 <script>
     const schedule = [
-        { date: "9/10", week: "Week 1", title: "課程介紹 & 基礎設置", type: "normal", 
-          geo: "地球物理概要", 
-          data: "Python環境, Google/Github/Hugging Face帳號, Colab, Codespace, Dify" },
-        { date: "9/17", week: "Week 2", title: "折射探勘與基礎繪圖", type: "normal", 
-          geo: "折射探勘學", 
-          data: "Pygmt, Obspy, Streamlit, Gradio" },
-        { date: "9/24", week: "Week 3", title: "校園野外實驗", type: "field", 
-          geo: "折射探勘實作", 
-          data: "實地數據採集", 
-          link: "experiment.html", linkText: "進入實驗頁面 →", linkClass: "link-green" },
-        { date: "10/1", week: "Week 4", title: "地球物理專題演講", type: "guest", 
-          geo: "專題講座", 
-          data: "-" },
-        { date: "10/8", week: "Week 5", title: "折射探勘與互動程式", type: "normal", 
-          geo: "折射探勘學", 
-          data: "Hugging Face Space 互動程式製作" },
-        { date: "10/15", week: "Week 6", title: "重力探勘學 (I)", type: "normal", 
-          geo: "重力探勘學", 
-          data: "Colab 進階使用" },
-        { date: "10/22", week: "Week 7", title: "重力探勘學 (II)", type: "normal", 
-          geo: "重力探勘學", 
-          data: "Gemini API, Dify" },
-        { date: "10/29", week: "Week 8", title: "期中考", type: "exam", 
-          geo: "筆試/實作", 
-          data: "-" },
-        { date: "11/05", week: "Week 9", title: "板塊構造與地震 (I)", type: "normal", 
-          geo: "板塊構造與地震", 
-          data: "Pygmt 繪圖應用" },
-        { date: "11/12", week: "Week 10", title: "板塊構造與地震 (II)", type: "normal", 
-          geo: "板塊構造與地震", 
-          data: "Pygmt 繪圖應用" },
-        { date: "11/19", week: "Week 11", title: "板塊構造與地磁 (I)", type: "normal", 
-          geo: "板塊構造與地磁", 
-          data: "Obspy 地震資料處理" },
-        { date: "11/26", week: "Week 12", title: "板塊構造與地磁 (II)", type: "normal", 
-          geo: "板塊構造與地磁", 
-          data: "Obspy 地震資料處理" },
-        { date: "12/03", week: "Week 13", title: "板塊構造與地熱", type: "normal", 
-          geo: "板塊構造與地熱", 
-          data: "Gemini API 申請, Dify 應用",
-          link: "geothermal.html", linkText: "進入地熱與PyGMT專題 →", linkClass: "link-brown" },
-        { date: "12/10", week: "Week 14", title: "專題演講：黃有志博士", type: "guest", 
-          geo: "阿蘇火山、熊本地震到嘉南地震觀測：旅日經驗與應用", 
-          data: "-" },
-        { date: "12/17", week: "Week 15", title: "專題演講：廖勿渝博士", type: "guest", 
-          geo: "AI遇上地震學：從深度學習到全自動化監測", 
-          data: "-" },
-        { date: "12/24", week: "Week 16", title: "期末專題發表", type: "exam", 
-          geo: "專題報告", 
-          data: "綜合展示" },
-        { date: "12/31", week: "Week 17", title: "參訪：中油大樓", type: "field", 
-          geo: "台北市信義區松仁路3號1樓", 
-          data: "實地參訪" },
-        { date: "1/7", week: "Week 18", title: "參訪：地質調查所", type: "field", 
-          geo: "實地參訪", 
-          data: "實地參訪" }
+        { date: "9/10", week: "Week 1", title: "課程介紹 & 基礎設置", type: "normal", geo: "地球物理概要", data: "Python環境, Google/Github/Hugging Face帳號" },
+        { date: "9/17", week: "Week 2", title: "折射探勘與基礎繪圖", type: "normal", geo: "折射探勘學", data: "Pygmt, Obspy, Streamlit" },
+        
+        // Week 3 Link Updated
+        { date: "9/24", week: "Week 3", title: "校園野外實驗", type: "field", geo: "折射探勘實作", data: "實地數據採集", 
+          link: "week3_experiment.html", linkText: "View Experiment Page →", linkClass: "link-green" },
+        
+        { date: "10/1", week: "Week 4", title: "地球物理專題演講", type: "guest", geo: "專題講座", data: "-" },
+        { date: "10/8", week: "Week 5", title: "折射探勘與互動程式", type: "normal", geo: "折射探勘學", data: "Hugging Face Space" },
+        { date: "10/15", week: "Week 6", title: "重力探勘學 (I)", type: "normal", geo: "重力探勘學", data: "Colab 進階使用" },
+        { date: "10/22", week: "Week 7", title: "重力探勘學 (II)", type: "normal", geo: "重力探勘學", data: "Gemini API, Dify" },
+        { date: "10/29", week: "Week 8", title: "期中考", type: "exam", geo: "筆試/實作", data: "-" },
+        { date: "11/05", week: "Week 9", title: "板塊構造與地震 (I)", type: "normal", geo: "板塊構造與地震", data: "Pygmt 繪圖應用" },
+        { date: "11/12", week: "Week 10", title: "板塊構造與地震 (II)", type: "normal", geo: "板塊構造與地震", data: "Pygmt 繪圖應用" },
+        { date: "11/19", week: "Week 11", title: "板塊構造與地磁 (I)", type: "normal", geo: "板塊構造與地磁", data: "Obspy 地震資料處理" },
+        { date: "11/26", week: "Week 12", title: "板塊構造與地磁 (II)", type: "normal", geo: "板塊構造與地磁", data: "Obspy 地震資料處理" },
+        
+        // Week 13 Link Updated
+        { date: "12/03", week: "Week 13", title: "板塊構造與地熱", type: "normal", geo: "板塊構造與地熱", data: "Gemini API 申請, Dify 應用",
+          link: "week13_geothermal.html", linkText: "View Geothermal Page →", linkClass: "link-brown" },
+          
+        { date: "12/10", week: "Week 14", title: "專題演講：黃有志博士", type: "guest", geo: "旅日經驗與應用", data: "-" },
+        { date: "12/17", week: "Week 15", title: "專題演講：廖勿渝博士", type: "guest", geo: "AI遇上地震學", data: "-" },
+        { date: "12/24", week: "Week 16", title: "期末專題發表", type: "exam", geo: "專題報告", data: "綜合展示" },
+        { date: "12/31", week: "Week 17", title: "參訪：中油大樓", type: "field", geo: "實地參訪", data: "台北市信義區" },
+        { date: "1/7", week: "Week 18", title: "參訪：地質調查所", type: "field", geo: "實地參訪", data: "-" }
     ];
 
     const container = document.getElementById('timeline');
 
     schedule.forEach(item => {
-        // Create Badge
         const dateParts = item.date.split('/');
-        
-        // Handle Links
         let linkHtml = '';
         if(item.link) {
             linkHtml = `<a href="${item.link}" class="page-link-btn ${item.linkClass}">${item.linkText}</a>`;
         }
-
         const html = `
             <div class="week-card type-${item.type}">
-                <div class="date-badge">
-                    <span>${dateParts[0]}/${dateParts[1]}</span>
-                    <div>${item.week}</div>
-                </div>
+                <div class="date-badge"><span>${dateParts[0]}/${dateParts[1]}</span><div>${item.week}</div></div>
                 <div class="card-content">
                     <div class="week-title">${item.title}</div>
                     <div class="desc">
@@ -301,11 +149,9 @@
                         ${linkHtml}
                     </div>
                 </div>
-            </div>
-        `;
+            </div>`;
         container.insertAdjacentHTML('beforeend', html);
     });
 </script>
-
 </body>
 </html>
