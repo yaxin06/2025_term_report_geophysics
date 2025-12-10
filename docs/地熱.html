@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 13: 板塊構造與地熱</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 溫暖的陶土與地質感 */
+            --primary: #CB997E; 
+            --secondary: #DDBEA9;
+            --accent: #A5A58D;
+            --bg: #F7F5F0; /* 米白 */
+            --paper: #FFFFFF;
+            --text: #4A403A;
+        }
+
+        body {
+            font-family: 'Lato', 'Noto Serif TC', serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            /* 霧氣繚繞的地熱景觀 */
+            background: linear-gradient(rgba(74, 64, 58, 0.6), rgba(74, 64, 58, 0.6)), url('https://images.unsplash.com/photo-1516934024742-b461fba47600?q=80&w=1974&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            height: 55vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 { font-size: 3.2rem; margin: 0; letter-spacing: 3px; font-weight: 700; text-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.1rem; margin-top: 15px; font-weight: 300; letter-spacing: 1px; opacity: 0.9; }
+        
+        .back-btn {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.15);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
+
+        /* Content Layout */
+        .content-wrapper {
+            max-width: 850px;
+            margin: -60px auto 60px;
+            position: relative;
+            z-index: 10;
+            padding: 0 20px;
+        }
+
+        .section-card {
+            background: var(--paper);
+            padding: 50px;
+            border-radius: 4px; /* 較為方正，模擬紙張 */
+            box-shadow: 0 15px 35px rgba(165, 165, 141, 0.15);
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 { 
+            color: var(--primary); 
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary);
+            margin-top: 8px;
+        }
+
+        p { color: #666; margin-bottom: 20px; text-align: justify; }
+
+        /* Visualization Link Card */
+        .viz-card {
+            background-color: #FAFAFA;
+            border: 1px solid #EAEAEA;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+        .viz-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .action-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(203, 153, 126, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background-color: #B07D62;
+            box-shadow: 0 6px 20px rgba(203, 153, 126, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .tech-tag {
+            display: inline-block;
+            background: #EEE;
+            color: #888;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 0 5px;
+        }
+
+        /* Footer */
+        footer { text-align: center; padding: 40px; color: #AAA; font-size: 0.8rem; border-top: 1px solid #EEE; margin-top: 40px;}
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .section-card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <a href="index.html" class="back-btn">← 回到課程地圖</a>
+        <div>
+            <h1>板塊構造與地熱</h1>
+            <p>Week 13: Plate Tectonics & Geothermal Energy</p>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        
+        <!-- Knowledge Section -->
+        <div class="section-card">
+            <h2>地熱與構造的關聯</h2>
+            <p>
+                地熱能源的分布與板塊構造息息相關。在板塊邊界，特別是張裂性邊界（如中洋脊）與聚合性邊界（如隱沒帶上的火山島弧），
+                地殼較薄或岩漿活動頻繁，使得地球內部的熱能更容易傳遞至地表。
+            </p>
+            <p>
+                本週課程將探討板塊運動如何創造地熱潛能區，並結合 Python 工具進行視覺化分析。
+            </p>
+        </div>
+
+        <!-- PyGMT Visualization Link Section -->
+        <div class="section-card">
+            <h2>PyGMT 實作成果</h2>
+            <p>利用 Python 的 PyGMT 庫，我們可以繪製出精確的板塊邊界與地形圖，藉此分析地質構造特徵。</p>
+            
+            <div class="viz-card">
+                <div class="viz-icon">🌍</div>
+                <h3 style="margin: 0; color: #444;">全球板塊邊界繪製</h3>
+                <p style="font-size: 0.9rem; margin: 10px 0 20px;">
+                    Interactive Visualization via GitHub Pages
+                    <br>
+                    <span class="tech-tag">#PyGMT</span> <span class="tech-tag">#Python</span> <span class="tech-tag">#Geophysics</span>
+                </p>
+                
+                <!-- The requested link button -->
+                <a href="https://yaxin06.github.io/plot_plate_boundary_pygmt/" target="_blank" class="action-btn">
+                    開啟互動地圖與程式碼 ↗
+                </a>
+            </div>
+        </div>
+
+        <!-- Tool Skills Section -->
+        <div class="section-card">
+            <h2>AI 輔助工具</h2>
+            <p>
+                本週亦涵蓋了生成式 AI 的應用。學習如何申請 <strong>Gemini API</strong>，
+                並將其整合至 <strong>Dify</strong> 平台，建立屬於自己的地學知識問答機器人。
+            </p>
+            <div style="margin-top: 20px; padding: 15px; background: #F4F6F8; border-left: 4px solid var(--accent); border-radius: 0 4px 4px 0;">
+                <strong>💡 實作重點：</strong> 取得 API Key -> 設定 Dify 知識庫 -> 測試 Prompt Engineering。
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        Geophysics & Data Processing Class | Designed for Learning
+    </footer>
+
+</body>
+</html>
