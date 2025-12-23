@@ -8,24 +8,24 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f9f8f4; color: #333; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f9f8f4; color: #333; scroll-behavior: smooth; }
         .serif { font-family: 'Noto Serif TC', serif; }
         .bg-earth { background-color: #4A5D4E; }
         .text-earth { color: #4A5D4E; }
-        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
-        .fade-enter-active, .fade-leave-active { transition: opacity 0.5s ease; }
+        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1); }
+        .fade-enter-active, .fade-leave-active { transition: opacity 0.4s ease; }
         .fade-enter-from, .fade-leave-to { opacity: 0; }
-        .timeline-line::before { content: ''; position: absolute; left: 50%; width: 2px; height: 100%; background: #d1d5db; transform: translateX(-50%); z-index: 0; }
+        .timeline-line::before { content: ''; position: absolute; left: 50%; width: 2px; height: 100%; background: #d1d5db; transform: translateX(-50%); }
         @media (max-width: 768px) { .timeline-line::before { left: 20px; } }
     </style>
 </head>
 <body>
     <div id="app" class="min-h-screen">
         <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-6 py-4 flex justify-between items-center">
-            <h1 class="text-xl font-bold text-earth tracking-widest cursor-pointer uppercase" @click="currentPage = 'home'">Journey to the Center</h1>
-            <div class="space-x-6 text-sm font-medium">
-                <button @click="currentPage = 'intro'" :class="{'text-earth font-bold': currentPage === 'intro'}" class="hover:text-earth transition">課程簡介</button>
-                <button @click="currentPage = 'home'" :class="{'text-earth font-bold': currentPage === 'home'}" class="hover:text-earth transition">學習歷程</button>
+            <h1 class="text-xl font-bold text-earth tracking-widest cursor-pointer" @click="currentPage = 'home'">Journey to the Center</h1>
+            <div class="space-x-4 md:space-x-6 text-sm font-medium">
+                <button @click="currentPage = 'intro'" :class="{'text-earth font-bold border-b-2 border-earth': currentPage === 'intro'}" class="pb-1 hover:text-earth transition">課程簡介</button>
+                <button @click="currentPage = 'home'" :class="{'text-earth font-bold border-b-2 border-earth': currentPage === 'home'}" class="pb-1 hover:text-earth transition">學習歷程</button>
             </div>
         </nav>
 
@@ -34,7 +34,7 @@
                 <header class="text-center mb-16">
                     <span class="text-earth font-bold tracking-[0.3em] text-xs uppercase mb-2 block">Timeline</span>
                     <h2 class="serif text-4xl mb-4 text-gray-800">各週主題時光軸</h2>
-                    <p class="text-gray-500 italic">記錄從理論探索到數位編程的每一哩路</p>
+                    <p class="text-gray-500 italic text-sm">點擊下方卡片探索詳細學習內容</p>
                 </header>
 
                 <div class="relative timeline-line">
@@ -42,36 +42,34 @@
                          class="relative mb-12 flex items-center justify-between w-full" 
                          :class="index % 2 === 0 ? 'md:flex-row-reverse' : ''">
                         <div class="hidden md:block md:w-5/12"></div>
-                        
                         <div class="z-10 bg-earth text-white w-10 h-10 rounded-full flex items-center justify-center font-bold border-4 border-white shadow-sm shrink-0">
                             {{ index + 1 }}
                         </div>
-
                         <div class="w-full md:w-5/12 ml-4 md:ml-0 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-all"
-                             :class="week.target ? 'card-hover cursor-pointer border-earth/30 ring-1 ring-earth/10' : 'opacity-80'"
+                             :class="week.target ? 'card-hover cursor-pointer border-earth/30' : 'opacity-80'"
                              @click="week.target ? currentPage = week.target : null">
                             <div class="flex justify-between items-start mb-1">
                                 <div class="text-xs text-earth font-bold">{{ week.date }}</div>
-                                <span v-if="week.target" class="text-[10px] bg-earth text-white px-2 py-0.5 rounded">點擊查看詳情</span>
+                                <span v-if="week.target" class="text-[10px] bg-earth/10 text-earth px-2 py-0.5 rounded">詳情 →</span>
                             </div>
                             <h3 class="font-bold text-lg mb-2">{{ week.title }}</h3>
                             <p class="text-xs text-gray-500 leading-relaxed mb-3">{{ week.desc }}</p>
                             <div class="flex flex-wrap gap-2">
-                                <span v-for="tag in week.tags" :key="tag" class="text-[10px] px-2 py-1 bg-gray-100 text-gray-600 rounded-full">{{ tag }}</span>
+                                <span v-for="tag in week.tags" class="text-[10px] px-2 py-1 bg-gray-100 text-gray-600 rounded-full">{{ tag }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section v-else class="max-w-5xl mx-auto py-12 px-6">
-                <button @click="currentPage = 'home'" class="mb-8 text-sm text-gray-400 hover:text-earth flex items-center">
-                    ← 返回時光軸
+            <section v-else class="max-w-4xl mx-auto py-12 px-6 min-h-screen">
+                <button @click="currentPage = 'home'" class="mb-8 text-sm text-gray-400 hover:text-earth flex items-center transition">
+                    <span class="mr-2">←</span> 返回時光軸
                 </button>
 
-                <article v-if="currentPage === 'intro'">
-                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">課程簡介</h2>
-                    <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div v-if="currentPage === 'intro'" class="space-y-8">
+                    <h2 class="serif text-4xl border-l-4 border-earth pl-6">課程簡介</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
                         <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
                             <h4 class="font-bold mb-4 text-xl">🧭 上課方式</h4>
                             <p class="text-gray-600 text-sm leading-relaxed">包含課程介紹、成績計算。掌握安裝 Python 環境、使用 Colab、GitHub、Dify 等工具。</p>
@@ -81,68 +79,87 @@
                             <p class="text-gray-600 text-sm">平時實作與報告 (40%)、期中評量 (20%)、期末專題發表 (40%)。</p>
                         </div>
                     </div>
-                </article>
+                </div>
 
-                <article v-if="currentPage === 'refraction'">
-                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">折射探勘學與實作</h2>
-                    <p class="mb-6">深入了解折射探勘原理，並學習使用 PyGMT、ObsPy、Streamlit 等工具進行數據視覺化與應用部署。</p>
-                    <div class="bg-earth/5 p-6 rounded-2xl border border-earth/20">
-                        <h4 class="font-bold text-earth mb-2">學習重點：</h4>
-                        <ul class="list-disc pl-5 text-sm space-y-1">
-                            <li>校園野外實驗數據分析</li>
-                            <li>ObsPy 地震波形處理</li>
-                            <li>Gradio 快速原型建立</li>
+                <div v-if="currentPage === 'refraction'" class="space-y-6">
+                    <h2 class="serif text-4xl border-l-4 border-earth pl-6">折射探勘學與實作</h2>
+                    
+                    <p class="text-gray-600 leading-relaxed">深入了解折射探勘原理，並學習使用 PyGMT、ObsPy、Streamlit 等工具進行數據視覺化與應用部署。</p>
+                    <div class="bg-earth/5 p-8 rounded-3xl border border-earth/20">
+                        <h4 class="font-bold text-earth mb-4">核心實務學習：</h4>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li class="flex items-center"><span class="w-2 h-2 bg-earth rounded-full mr-3"></span>校園黑森林野外實驗數據採集</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-earth rounded-full mr-3"></span>ObsPy 地震波形去噪與初時判讀</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-earth rounded-full mr-3"></span>Gradio 快速原型建立與數據互動</li>
                         </ul>
                     </div>
-                </article>
+                </div>
 
-                <article v-if="currentPage === 'lecture-kan'">
-                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">甘禮有博士專題演講</h2>
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
-                        <p class="text-gray-600 leading-relaxed">探討地球物理的前沿應用，重點在於如何透過科學邏輯解決實際觀測問題，例如海上測站缺乏時的地震定位困難。</p>
+                <div v-if="currentPage === 'gravity'" class="space-y-6">
+                    <h2 class="serif text-4xl border-l-4 border-earth pl-6">重力探勘學</h2>
+                    <p class="text-gray-600">學習理論重力、自由空間改正與布格改正。透過 Colab 進行實際計算與模擬，探索地底密度差異。</p>
+                    <div class="bg-stone-800 text-stone-300 p-6 rounded-2xl font-mono text-xs overflow-x-auto shadow-inner">
+                        <p class="text-stone-500 mb-2"># 重力異常計算範例 (Gravity Corrections)</p>
+                        <p><span class="text-blue-400">FAC</span> = 0.3086 * height <span class="text-stone-500"># 自由空間改正</span></p>
+                        <p><span class="text-blue-400">BC</span> = 0.04193 * rho * height <span class="text-stone-500"># 布格改正</span></p>
+                        <p><span class="text-blue-400">G_anomaly</span> = g_obs - g_theory + FAC - BC</p>
                     </div>
-                </article>
+                </div>
 
-                <article v-if="currentPage === 'gravity'">
-                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">重力探勘學</h2>
-                    <p class="mb-6">學習理論重力、自由空間改正與布格改正。透過 Colab 進行實際計算與模擬。</p>
-                    <div class="bg-stone-800 text-white p-6 rounded-2xl">
-                        <p class="font-mono text-sm"># 重力計算公式範例<br>FAC = 0.3086 * height<br>BC = 0.04193 * rho * height</p>
-                    </div>
-                </article>
+                <div v-if="currentPage === 'tectonics'" class="space-y-6">
+                    <h2 class="serif text-4xl border-l-4 border-earth pl-6">板塊構造與地震</h2>
+                    
+                    <p class="text-gray-600 leading-relaxed">探討全球板塊運動規律與地震發生成因。本週重點在於利用 PyGMT 工具，將真實的地震數據轉化為具備科學意義的全球震央分佈與板塊邊界圖。</p>
+                </div>
 
-                <article v-if="currentPage === 'tectonics'">
-                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">板塊構造與地震</h2>
-                    <p class="text-gray-600 mb-6">探討全球板塊運動規律與地震發生成因。利用 PyGMT 繪製全球震央分佈與板塊邊界圖。</p>
-                </article>
-
-                <article v-if="currentPage === 'lecture-huang'">
-                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">黃有志博士專題演講</h2>
-                    <p class="italic text-gray-500 mb-6">從阿蘇火山，熊本地震到嘉南地震觀測：談旅日經驗與地球物理學的實際應用</p>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-orange-50 p-6 rounded-xl border border-orange-100">
-                            <h4 class="font-bold text-orange-800">阿蘇火山研究</h4>
-                            <p class="text-sm text-orange-700">探討火山渣與浮石的差異，以及巨大破火山口的地質特徵。</p>
-                        </div>
-                        <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
-                            <h4 class="font-bold text-blue-800">防災應用</h4>
-                            <p class="text-sm text-blue-700">台日防災細節比較，包含家具固定與地震處理方式。</p>
+                <div v-if="currentPage.startsWith('lecture-')" class="space-y-8">
+                    <div v-if="currentPage === 'lecture-kan'">
+                        <h2 class="serif text-4xl border-l-4 border-earth pl-6 mb-6">甘禮有博士專題演講</h2>
+                        <div class="bg-white p-8 rounded-3xl border border-stone-100 shadow-sm">
+                            <h4 class="font-bold text-xl mb-4 text-earth">主題：透視地球的聲音</h4>
+                            <p class="text-gray-600 leading-relaxed">探討地球物理的前沿應用，重點在於如何透過科學邏輯解決實際觀測問題，例如海上測站缺乏時的地震定位困難。</p>
                         </div>
                     </div>
-                </article>
 
-                <article v-if="currentPage === 'lecture-liao'">
-                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">廖勿渝博士專題演講</h2>
-                    <p class="italic text-gray-500 mb-6">AI 遇上地震學：從深度學習到全自動化監測</p>
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
-                        <p class="text-gray-600 leading-relaxed mb-4">介紹如何利用 Deep Learning 判斷地震波型，取代傳統人工判讀，提升自動化監測的效率與精確度。</p>
-                        <div class="bg-gray-100 p-4 rounded text-xs font-mono">
-                            Workflow: P-arrival detection -> Hypocenter determination -> Magnitude calculation
+                    <div v-if="currentPage === 'lecture-huang'">
+                        <h2 class="serif text-4xl border-l-4 border-earth pl-6 mb-6">黃有志博士專題演講</h2>
+                        <p class="italic text-gray-500 mb-8">從阿蘇火山，熊本地震到嘉南地震觀測：談旅日經驗與地球物理學的實際應用</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-orange-50/50 p-8 rounded-3xl border border-orange-100">
+                                <h4 class="font-bold text-orange-800 mb-3 text-lg">🌋 阿蘇火山研究</h4>
+                                <p class="text-sm text-orange-700 leading-relaxed">探討火山渣（氣孔連通）與浮石（獨立氣室）的差異，以及巨大破火山口的地質特徵。</p>
+                            </div>
+                            <div class="bg-blue-50/50 p-8 rounded-3xl border border-blue-100">
+                                <h4 class="font-bold text-blue-800 mb-3 text-lg">🏠 防災實務應用</h4>
+                                <p class="text-sm text-blue-700 leading-relaxed">台日防災細節比較，包含家具固定、長期監測「盲斷層」對城市規劃的重要性。</p>
+                            </div>
                         </div>
                     </div>
-                </article>
+
+                    <div v-if="currentPage === 'lecture-liao'">
+                        <h2 class="serif text-4xl border-l-4 border-earth pl-6 mb-6">廖勿渝博士專題演講</h2>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
+                            <h4 class="font-bold text-xl mb-4 text-earth">AI 遇上地震學</h4>
+                            <p class="text-gray-600 leading-relaxed mb-6">介紹如何利用 Deep Learning (深度學習) 判斷地震波型，取代傳統人工判讀，在面對複雜如花蓮地震的數據時，能維持極高的判讀穩定性與精確度。</p>
+                            <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                                <h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">全自動化監測流程</h5>
+                                <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-500">
+                                    <span class="bg-white px-3 py-2 rounded shadow-sm border">P-arrival detection</span>
+                                    <span class="hidden md:block">→</span>
+                                    <span class="bg-white px-3 py-2 rounded shadow-sm border">Hypocenter determination</span>
+                                    <span class="hidden md:block">→</span>
+                                    <span class="bg-white px-3 py-2 rounded shadow-sm border">Magnitude calculation</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </transition>
+
+        <footer class="py-12 border-t border-gray-100 text-center">
+            <p class="text-gray-400 text-xs tracking-widest">© 2024 EARTH PHYSICS LEARNING JOURNEY</p>
+        </footer>
     </div>
 
     <script>
