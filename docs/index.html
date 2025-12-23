@@ -16,7 +16,12 @@
         .fade-enter-active, .fade-leave-active { transition: opacity 0.5s ease; }
         .fade-enter-from, .fade-leave-to { opacity: 0; }
         .timeline-line::before { content: ''; position: absolute; left: 50%; width: 2px; height: 100%; background: #d1d5db; transform: translateX(-50%); z-index: 0; }
-        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        
+        /* 圖片容器樣式 */
+        .img-container { position: relative; overflow: hidden; border-radius: 1.5rem; background: #eee; aspect-ratio: 16/9; margin-bottom: 1.5rem; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .img-container:hover img { transform: scale(1.05); }
+        .img-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); color: white; padding: 1rem; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -61,130 +66,111 @@
                     ← 返回時光軸
                 </button>
 
-                <article v-if="currentPage === 'intro'">
-                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">地心冒險指南：課程深度解析</h2>
-                    <p class="text-gray-600 mb-10 leading-relaxed">這是一場關於「數據」與「地球」的對話。課程將長達 6,371 公里的地層秘密，透過 Python 程式碼、AI 大型語言模型與雲端運算進行解碼。</p>
-                    
-                    <div class="grid md:grid-cols-2 gap-8 mb-12">
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
-                            <h4 class="font-bold mb-4 text-xl flex items-center"><span class="mr-2">🧭</span>上課方式</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed mb-6">結合「實體野外測量」與「雲端大數據分析」。我們不只在教室聽課，更走進黑森林架設地震儀，並在 Hugging Face 與 Colab 上實作個人化的地學助手。</p>
-                            <ul class="text-sm space-y-2 text-gray-500">
-                                <li class="flex items-start"><span class="text-earth mr-2">✓</span> 實地探勘：測量地層厚度與波速</li>
-                                <li class="flex items-start"><span class="text-earth mr-2">✓</span> AI 整合：利用 Gemini API 輔助判讀</li>
-                                <li class="flex items-start"><span class="text-earth mr-2">✓</span> 數位部署：將研究成果網頁化</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
-                            <h4 class="font-bold mb-4 text-xl flex items-center"><span class="mr-2">📊</span>成績計算</h4>
-                            <div class="space-y-6">
-                                <div>
-                                    <div class="flex justify-between text-xs mb-2"><span>平時作業與實作報告</span><span class="font-bold">40%</span></div>
-                                    <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-earth w-[40%]"></div></div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-xs mb-2"><span>期中理論評量</span><span class="font-bold">20%</span></div>
-                                    <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-earth w-[20%]"></div></div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-xs mb-2"><span>期末互動專題發表</span><span class="font-bold">40%</span></div>
-                                    <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-earth w-[40%]"></div></div>
-                                </div>
+                <article v-if="currentPage === 'field'">
+                    <header class="mb-12">
+                        <h2 class="serif text-5xl text-stone-800 mb-4 border-l-4 border-earth pl-6">黑森林的震動印記</h2>
+                        <p class="text-gray-400 ml-8 text-lg italic">校園野外實驗：折射探勘學實踐記錄</p>
+                    </header>
+
+                    <div class="bg-white p-10 rounded-[2rem] shadow-sm mb-12 border border-stone-100">
+                        <div class="grid md:grid-cols-3 gap-8 mb-10 text-center">
+                            <div class="group cursor-help">
+                                <div class="text-4xl font-serif text-earth mb-2 group-hover:scale-110 transition">333.01</div>
+                                <div class="text-xs text-gray-400 font-bold uppercase tracking-widest">平均直達波速 (m/s)</div>
                             </div>
+                            <div class="border-x border-gray-100 group cursor-help">
+                                <div class="text-4xl font-serif text-earth mb-2 group-hover:scale-110 transition">813.13</div>
+                                <div class="text-xs text-gray-400 font-bold uppercase tracking-widest">平均折射波速 (m/s)</div>
+                            </div>
+                            <div class="group cursor-help">
+                                <div class="text-4xl font-serif text-earth mb-2 group-hover:scale-110 transition">7.67</div>
+                                <div class="text-xs text-gray-400 font-bold uppercase tracking-widest">推算地層厚度 (m)</div>
+                            </div>
+                        </div>
+                        <p class="text-center text-sm text-stone-400 italic">註：數據已剔除炸點 12m 與 42m 之極端異常值以優化精度。</p>
+                    </div>
+
+                    <h3 class="serif text-2xl mb-8 text-stone-700 flex items-center">
+                        <span class="w-8 h-px bg-earth mr-4"></span> 現場實錄與波形分析
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-1 gap-12 mb-16">
+                        <div class="group">
+                            <div class="img-container shadow-lg">
+                                <img src="https://raw.githubusercontent.com/yaxin06/2025_term_report_geophysics/main/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202025-12-24%20013838.png" alt="實驗波形數據">
+                                <div class="img-caption serif italic">圖一：24 組檢波器原始接收波形紀錄</div>
+                            </div>
+                            <p class="text-sm text-stone-500 leading-relaxed px-4">
+                                <strong>數位化接收：</strong> 透過線圈感應電流記錄震波，影像顯示 24 個 Geophone 同步回傳的訊號，我們需從雜訊中精確挑選 P 波初至時間。
+                            </p>
+                        </div>
+
+                        <div class="group">
+                            <div class="img-container shadow-lg">
+                                <img src="https://raw.githubusercontent.com/yaxin06/2025_term_report_geophysics/main/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202025-12-24%20013849.png" alt="數據擬合曲線">
+                                <div class="img-caption serif italic">圖二：走時曲線擬合與速度模型計算</div>
+                            </div>
+                            <p class="text-sm text-stone-500 leading-relaxed px-4">
+                                <strong>數據處理：</strong> 將觀察到的走時數據繪製成圖，區分直達波與臨界折射波，利用回歸分析求得不同地層之波速。
+                            </p>
+                        </div>
+
+                        <div class="group">
+                            <div class="img-container shadow-lg">
+                                <img src="https://raw.githubusercontent.com/yaxin06/2025_term_report_geophysics/main/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202025-12-24%20013855.png" alt="實驗數據總表">
+                                <div class="img-caption serif italic">圖三：炸點距離與深度關聯統計表</div>
+                            </div>
+                            <p class="text-sm text-stone-500 leading-relaxed px-4">
+                                <strong>成果統計：</strong> 彙整各炸點（0m 至 48m）之數據，最終推算出黑森林地表下約 7.67 公尺處存在明顯的速度不連續面。
+                            </p>
                         </div>
                     </div>
 
-                    <div class="bg-earth text-white p-10 rounded-3xl">
-                        <h4 class="serif text-2xl mb-6">核心學習模組 (Core Skills)</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
-                            <div class="opacity-90">
-                                <p class="font-bold mb-2 text-lg">數位編程力</p>
-                                <p>掌握 Python, ObsPy 與 PyGMT，將震波與地磁數據視覺化。</p>
+                    <div class="bg-earth text-white p-12 rounded-[2.5rem] shadow-xl relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 opacity-10">
+                            <svg width="200" height="200" fill="white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                        </div>
+                        <h4 class="serif text-3xl mb-8 border-b border-white/20 pb-4">探險者心得</h4>
+                        <div class="grid md:grid-cols-2 gap-12 italic text-stone-200 leading-loose">
+                            <div>
+                                <p class="mb-4">「這次使用的簡易地震儀雖然僅有垂直分量，但在平地已綽綽有餘。我學到在地形起伏大的區域，必須嚴格考慮高低落差校正，才能還原真實地層。」</p>
+                                <span class="text-white font-bold">— 陳亞歆</span>
                             </div>
-                            <div class="opacity-90">
-                                <p class="font-bold mb-2 text-lg">野外實踐力</p>
-                                <p>從地震儀佈設到數據增益，真實採集大地律動。</p>
-                            </div>
-                            <div class="opacity-90">
-                                <p class="font-bold mb-2 text-lg">AI 應用力</p>
-                                <p>利用AI工具協助我們Github的網站架設。</p>
+                            <div>
+                                <p class="mb-4">「為什麼是 24？因為它豐富的因數讓數據處理極具彈性。敲擊鐵板的那一刻，我感覺自己像是在與大地對話，將震動轉化為科學。」</p>
+                                <span class="text-white font-bold">— 楊廂甯</span>
                             </div>
                         </div>
                     </div>
                 </article>
 
-                <article v-if="currentPage === 'field'">
-                    <h2 class="serif text-4xl mb-2 border-l-4 border-earth pl-6">黑森林的震動印記</h2>
-                    <p class="text-gray-400 mb-8 ml-8">校園野外實驗：折射探勘學實踐 </p>
+                <article v-if="currentPage === 'intro'">
+                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">課程簡介</h2>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm leading-relaxed">
+                        根據 Hugging Face Geophysics Class 規劃，本課程專注於地球物理理論與 Python 數據實作之結合。
+                    </div>
+                </article>
 
-                    
-                    
-                    <div class="bg-white p-10 rounded-3xl shadow-sm mb-12">
-                        <div class="grid md:grid-cols-3 gap-8 mb-10 text-center">
-                            <div>
-                                <div class="text-3xl font-serif text-earth mb-2">333.01</div>
-                                <div class="text-xs text-gray-500 font-bold uppercase tracking-widest">平均直達波速 (m/s)</div>
-                            </div>
-                            <div class="border-x border-gray-100">
-                                <div class="text-3xl font-serif text-earth mb-2">813.13</div>
-                                <div class="text-xs text-gray-500 font-bold uppercase tracking-widest">平均折射波速 (m/s)</div>
-                            </div>
-                            <div>
-                                <div class="text-3xl font-serif text-earth mb-2">7.67</div>
-                                <div class="text-xs text-gray-500 font-bold uppercase tracking-widest">推算地層厚度 (m)</div>
-                            </div>
-                        </div>
-                        <h4 class="font-bold mb-4">探險者筆記：為什麼是 24 個地震儀？</h4>
-                        <blockquote class="border-l-2 border-gray-200 pl-4 italic text-gray-600 mb-6 leading-relaxed">
-                            「剛開始看到 24 個地震儀時，我心想越多越準嗎？結果老師補充是因為『24』這個數字有很多因數，在數據分段、取距與平均時非常靈活。」
-                        </blockquote>
-                        <div class="p-6 bg-stone-50 rounded-2xl text-sm leading-relaxed text-gray-500">
-                            <strong>實驗流程：</strong> 於地面安裝皮尺 → 每 2 公尺架設 Geophone (共 24 個) → 敲擊鐵板產生震波 → 利用電腦分析走時曲線。
+                <article v-if="currentPage === 'tech'">
+                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">數位技能庫</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        <div v-for="t in ['PyGMT', 'ObsPy', 'Seispy', 'Colab', 'Vue.js', 'Tailwind']" class="bg-white p-6 rounded-xl text-center shadow-sm border border-stone-100 font-bold text-earth">
+                            {{ t }}
                         </div>
                     </div>
                 </article>
 
                 <article v-if="currentPage === 'liao' || currentPage === 'huang'">
-                    <div v-if="currentPage === 'liao'">
-                        <h2 class="serif text-4xl mb-4 border-l-4 border-earth pl-6">AI 遇上地震學：廖勿渝博士</h2>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm mb-8 leading-loose text-gray-600">
-                            <h4 class="font-bold text-earth mb-4">從人工判讀到全自動化監測</h4>
-                            <p class="mb-4">廖博士分享了如何利用 <strong>Deep Learning</strong> 解決傳統地震學的痛點。在花蓮地震等餘震頻繁的個案中，人工判讀 P 波香味（Picking phases）效率低下且具備主觀偏差。</p>
-                            <p>透過 AI 穩定的基準，我們能更快速地找出<strong>「盲斷層」</strong>，這對地底拼圖的完整性至關重要。</p>
-                        </div>
-                    </div>
-
-                    <div v-if="currentPage === 'huang'">
-                        <h2 class="serif text-4xl mb-4 border-l-4 border-earth pl-6">火山與防災：黃有志博士</h2>
-                        <div class="bg-white p-8 rounded-3xl shadow-sm mb-8 leading-loose text-gray-600">
-                            <h4 class="font-bold text-earth mb-4">沉與浮的奧祕：火山渣與浮石</h4>
-                            <p class="mb-4">每一顆石頭都記錄了岩漿噴發那一瞬的壓力。<strong>火山渣</strong>氣孔連通，入水即沉；<strong>浮石</strong>氣孔獨立形成空氣室，因而能漂浮。</p>
-                            <p>日本更利用<strong>地磁變化</strong>監測岩漿動態：當岩石加熱超過居禮溫度時會消磁，這成為預判岩漿上升的重要指標。</p>
-                        </div>
-                    </div>
-                </article>
-
-                <article v-if="currentPage === 'tech'">
-                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">地球物理數位技能庫</h2>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-                        <div v-for="tool in ['PyGMT', 'ObsPy', 'Gemini API', 'Streamlit', 'Hugging Face', 'Google Colab']" :key="tool" class="bg-white p-6 rounded-2xl text-center shadow-sm card-hover border border-stone-100">
-                            <div class="font-bold text-earth text-sm">{{ tool }}</div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-900 text-green-400 p-8 rounded-3xl font-mono text-sm overflow-x-auto shadow-2xl">
-                        <div class="mb-4 opacity-50"># Geophysics Python Snippet Example</div>
-                        <div class="mb-1">import obspy</div>
-                        <div class="mb-1">from obspy.clients.fdsn import Client</div>
-                        <div class="mb-1">client = Client("IRIS")</div>
-                        <div class="mb-1">st = client.get_waveforms("IU", "ANMO", "00", "BHZ", t, t + 60)</div>
-                        <div class="mt-4 text-blue-400">st.plot()</div>
+                    <h2 class="serif text-4xl mb-8 border-l-4 border-earth pl-6">專家觀點</h2>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm text-stone-600 leading-loose">
+                        廖博士與黃博士的演講為我們開啟了 AI 監測與火山地磁研究的新視野。
                     </div>
                 </article>
             </section>
         </transition>
 
         <footer class="mt-24 py-12 bg-stone-100 text-center text-stone-400 text-xs tracking-widest uppercase">
-            <p>© 2025 地球物理學與資料處理實務 | 大地的迴響數位歷程</p>
+            <p>© 2025 地球物理學與資料處理實務 | 黑森林實驗紀錄專題</p>
         </footer>
     </div>
 
@@ -195,12 +181,10 @@
                 const currentPage = ref('home');
                 const weeks = [
                     { date: "09/10", title: "探索地心：課程啟航", desc: "環境架設與 Dify 導入，建立雲端研究室。", target: 'intro', tags: ['Python', 'Hugging Face'] },
-                    { date: "09/17", title: "震測初探：折射探勘學", desc: "走時曲線與初波判讀，理解 P 波傳遞特性。", target: 'field', tags: ['Refraction', 'Geophysics'] },
-                    { date: "09/24", title: "黑森林：校園野外實驗", desc: "實地佈設 24 個地震儀，採集真實震動數據。", target: 'field', tags: ['Field Work', '24 Geophones'] },
-                    { date: "10/01", title: "甘禮有博士：地球透視鏡", desc: "地震層析成像與正逆推原理。", target: 'home', tags: ['Tomography'] },
+                    { date: "09/24", title: "黑森林：校園野外實驗", desc: "實地佈設 24 個地震儀，採集真實震動數據並進行厚度估算。", target: 'field', tags: ['Field Work', '24 Geophones', 'Seismic'] },
                     { date: "10/15", title: "重力探勘：測量地球質量", desc: "自由空間與布蓋修正，學會秤出地球重量。", target: 'tech', tags: ['Gravity', 'Colab'] },
-                    { date: "12/10", title: "黃有志博士：火山與防災", desc: "阿蘇火山研究與日本防災的人文照護。", target: 'huang', tags: ['Volcanology', 'Japan'] },
-                    { date: "12/17", title: "廖勿渝博士：AI 地震監測", desc: "深度學習判讀 P 波香味與盲斷層追蹤。", target: 'liao', tags: ['AI', 'Deep Learning'] }
+                    { date: "12/10", title: "黃有志博士：火山與防災", desc: "阿蘇火山研究與地磁變化的防災應用。", target: 'huang', tags: ['Volcanology', 'Japan'] },
+                    { date: "12/17", title: "廖勿渝博士：AI 地震監測", desc: "深度學習判讀 P 波初至與盲斷層追蹤。", target: 'liao', tags: ['AI', 'Deep Learning'] }
                 ];
 
                 const navigateTo = (target) => {
