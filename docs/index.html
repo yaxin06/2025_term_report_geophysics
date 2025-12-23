@@ -42,7 +42,6 @@
 
         <main class="pt-32 pb-20 px-6 max-w-6xl mx-auto">
             <transition name="fade" mode="out-in">
-                
                 <div v-if="currentPage === 'home'" key="home">
                     <div class="text-center mb-20">
                         <span class="text-earth font-bold tracking-[0.3em] text-xs uppercase mb-3 block">Timeline</span>
@@ -50,7 +49,6 @@
                         <p class="text-stone-400 max-w-xl mx-auto leading-relaxed">從數位環境架設到野外震測實驗，記錄我們如何利用程式碼聽見大地的迴響。</p>
                     </div>
 
-                    <!-- Timeline -->
                     <div class="grid gap-8 relative">
                         <div v-for="(week, index) in weeks" :key="index" class="flex items-start space-x-6 timeline-dot" :class="{'last-dot': index === weeks.length - 1}">
                             <div class="flex-none w-16 pt-2 text-right">
@@ -72,7 +70,6 @@
                         </div>
                     </div>
                 </div>
-
             </transition>
         </main>
     </div>
@@ -86,26 +83,20 @@
                 
                 // Weekly Schedule
                 const weeks = [
-                    { date: "09/10", title: "探險啟航：數位環境架設", category: "Skill", target: "intro", desc: "安裝 Python、申請 Hugging Face 與 Dify，建立雲端研究室。", tags: ["Python", "Colab", "Dify"] },
-                    { date: "09/17", title: "震測初探：折射探勘學", category: "Knowledge", target: "field", desc: "理解臨界折射與走時曲線，準備進入黑森林實測。", tags: ["Refraction", "Geophysics"] },
-                    { date: "09/24", title: "黑森林實驗：實地數據採集", category: "Practice", target: "field", desc: "24 個地震儀的佈設，感受地面微小的顫動。", tags: ["Field Work", "Geophones"] },
-                    { date: "10/01", title: "甘禮有博士：地球透視鏡", category: "Lecture", target: "kan", desc: "地震層析成像與正逆推原理，透視地底構造。", tags: ["Tomography", "Inversion"] },
-                    { date: "10/15", title: "重力探勘：測量地球質量", category: "Knowledge", target: "gravity", desc: "自由空間與布蓋修正，學會秤出地球的重量。", tags: ["Gravity", "Bouguer"] },
-                    { date: "10/29", title: "期中考", category: "Assessment", target: null, desc: "期中理論與實作測驗。", tags: [] },
-                    { date: "11/05", title: "板塊構造與地震", category: "Knowledge", target: "plate", desc: "學習板塊邊界與地震活動，探索PyGMT的使用。", tags: ["Plate Tectonics", "PyGMT"] },
-                    { date: "12/10", title: "黃有志博士：火山與防災", category: "Lecture", target: "volcano", desc: "談旅日經驗與地球物理學的實際應用。", tags: ["Volcano", "Disaster Management"] },
-                    { date: "12/17", title: "廖勿渝博士：AI與地震學", category: "Lecture", target: "monitoring", desc: "深度學習如何改變地震預警與監測的未來。", tags: ["AI", "Earthquake Monitoring"] },
-                    { date: "12/24", title: "期末專題發表", category: "Assessment", target: null, desc: "發表期末報告與作品展示。", tags: [] },
+                    { date: "09/10", title: "第一週 : 課程介紹", category: "Knowledge", target: "intro", desc: "介紹上課方式、成績計算、課程內容。地球物理知識: 地球物理概要；資料處理技能: 安裝python環境、申請帳號 : google、hugging face、github、使用colab、codespace、Dify。", tags: ["課程介紹"] },
+                    { date: "09/17", title: "第二週 : 折射探勘學", category: "Knowledge", target: "refraction", desc: "學習折射波原理與如何使用pygmt、obspy等工具進行數據處理與分析。", tags: ["折射探勘學", "pygmt", "obspy"] },
+                    { date: "09/24", title: "第三週 : 校園野外實驗", category: "Practice", target: "fieldwork", desc: "進行折射探勘的實地數據採集與分析。", tags: ["野外實驗", "數據採集"] },
+                    { date: "10/01", title: "第四週 : 甘禮有博士專題演講", category: "Lecture", target: "lecture", desc: "聆聽甘禮有博士對地震監測技術的專題演講。", tags: ["甘禮有博士", "專題演講"] },
+                    { date: "10/15", title: "第六週 : 重力探勘學", category: "Knowledge", target: "gravity", desc: "學習重力探勘學與使用colab進行數據處理與分析。", tags: ["重力探勘學", "colab"] },
+                    { date: "10/29", title: "第八週 : 期中考", category: "Assessment", target: null, desc: "期中理論與實作測驗。", tags: [] },
+                    { date: "11/05", title: "第九週 : 板塊構造與地震", category: "Knowledge", target: "plate", desc: "學習板塊構造與地震活動的關聯，並使用pygmt進行地圖繪製。", tags: ["板塊構造", "pygmt"] },
+                    { date: "12/10", title: "第十四週 : 黃有志博士專題演講", category: "Lecture", target: "volcano", desc: "黃有志博士將介紹火山與防災技術，並分享其在日本的研究經驗。", tags: ["黃有志博士", "火山與防災"] },
+                    { date: "12/17", title: "第十五週 : 廖勿渝博士專題演講", category: "Lecture", target: "ai", desc: "廖勿渝博士介紹如何運用深度學習技術改變地震學領域。", tags: ["廖勿渝博士", "AI與地震學"] },
+                    { date: "12/24", title: "第十六週 : 期末專題發表", category: "Assessment", target: null, desc: "發表期末專題報告與作品展示。", tags: [] },
+                    { date: "12/31", title: "第十七週 : 參訪中油大樓", category: "Field Visit", target: null, desc: "參訪中油大樓，了解石油勘探與地震監測技術。", tags: [] },
+                    { date: "01/07", title: "第十八週 : 參訪地質調查所", category: "Field Visit", target: null, desc: "參訪地質調查所，深入了解地震與火山監測技術。", tags: [] }
                 ];
 
-                const navigateTo = (target) => {
-                    if (target) currentPage.value = target;
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                };
-
-                return { currentPage, weeks, navigateTo };
-            }
-        }).mount('#app');
-    </script>
-</body>
-</html>
+                const grading = [
+                    { name: "平時實作與野外報告", percent: 40 },
+                    {
